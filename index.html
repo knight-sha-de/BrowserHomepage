@@ -73,8 +73,8 @@
     line-height: 1.15;
     font-size: 13px;
     color: var(--fg);
-    text-shadow: 0 0 8px rgba(144,171,174,0.25);
     overflow-x: auto;
+    contain: content;
   }
 
   .subtitle {
@@ -119,6 +119,8 @@
     animation: blink 1s steps(1) infinite;
     vertical-align: text-bottom;
     margin-left: 2px;
+    will-change: opacity;
+    contain: strict;
   }
   @keyframes blink { 50% { opacity: 0; } }
 
@@ -205,6 +207,9 @@
           placeholder="search"
           autofocus
           autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
+          autocapitalize="off"
         >
         <span class="cursor"></span>
       </form>
@@ -219,7 +224,7 @@
       </ul>
 
       <div class="footer">
-        <span id="clock">--:--:--</span>
+        <span id="clock" style="contain:strict; display:inline-block; min-width:6.5em;">--:--:--</span>
         <span>status: online</span>
       </div>
 
