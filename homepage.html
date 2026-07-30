@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>~</title>
+<style>
+  :root {
+    --bg:    #051014;
+    --mid:   #26433C;
+    --fg:    #90ABAE;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "JetBrainsMono NF",
+                 ui-monospace, "Cascadia Code", monospace;
+    font-size: 15px;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .terminal {
+    width: 100%;
+    max-width: 760px;
+    border: 1px solid var(--mid);
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(38,67,60,0.10), rgba(38,67,60,0) 40%);
+    box-shadow: 0 0 0 1px rgba(144,171,174,0.03), 0 20px 60px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+
+  /* fake titlebar, like a terminal emulator window */
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--mid);
+    border-bottom: 1px solid var(--mid);
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--fg);
+    opacity: 0.5;
+  }
+  .titlebar span.label {
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.6;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .body-inner {
+    padding: 28px 32px 32px;
+  }
+
+  pre.ascii-title {
+    margin: 0 0 4px;
+    line-height: 1.15;
+    font-size: 13px;
+    color: var(--fg);
+    text-shadow: 0 0 8px rgba(144,171,174,0.25);
+    overflow-x: auto;
+  }
+
+  .subtitle {
+    margin: 0 0 28px;
+    font-size: 12px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+  }
+  .subtitle::before { content: "// "; }
+
+  form.search-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--mid);
+    border-radius: 4px;
+    background: rgba(38,67,60,0.15);
+    margin-bottom: 28px;
+  }
+  .prompt {
+    color: var(--mid);
+    white-space: nowrap;
+    user-select: none;
+  }
+  input[type="text"] {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font: inherit;
+    caret-color: var(--fg);
+  }
+  input[type="text"]::placeholder { color: var(--mid); }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.1em;
+    background: var(--fg);
+    animation: blink 1s steps(1) infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 24px;
+  }
+  .links li { }
+  .links a {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--fg);
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+  }
+  .links a:hover,
+  .links a:focus-visible {
+    border-color: var(--mid);
+    color: #ffffff;
+    padding-left: 4px;
+  }
+  .links a .idx {
+    color: var(--mid);
+  }
+  .links a::after {
+    content: "→";
+    color: var(--mid);
+  }
+
+  .footer {
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px solid var(--mid);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 520px) {
+    .links { grid-template-columns: 1fr; }
+    pre.ascii-title { font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="terminal">
+    <div class="titlebar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="label">guest@firefox: ~</span>
+    </div>
+
+    <div class="body-inner">
+
+      <!-- ============================================= -->
+      <!-- ASCII TITLE — replace the text inside this     -->
+      <!-- <pre> block with your own figlet-style banner  -->
+      <!-- (e.g. generate one at patorjk.com/software/     -->
+      <!-- taag using the "Small" or "Standard" font)      -->
+      <!-- ============================================= -->
+      <pre class="ascii-title">
+    __  ______  __  _________
+   / / / / __ \/  |/  / ____/
+  / /_/ / / / / /|_/ / __/   
+ / __  / /_/ / /  / / /___   
+/_/ /_/\____/_/  /_/_____/   
+      </pre>
+      <p class="subtitle">start_page — last login: today</p>
+
+      <form class="search-line" action="https://www.google.com/search" method="GET">
+        <span class="prompt">guest@firefox:~$</span>
+        <input
+          type="text"
+          name="q"
+          placeholder="search"
+          autofocus
+          autocomplete="off"
+        >
+        <span class="cursor"></span>
+      </form>
+
+      <ul class="links">
+        <li><a href="https://mail.google.com"><span class="idx">01</span> mail</a></li>
+        <li><a href="https://github.com"><span class="idx">02</span> github</a></li>
+        <li><a href="https://news.ycombinator.com"><span class="idx">03</span> news</a></li>
+        <li><a href="https://youtube.com"><span class="idx">04</span> youtube</a></li>
+        <li><a href="https://drive.google.com"><span class="idx">05</span> drive</a></li>
+        <li><a href="https://calendar.google.com"><span class="idx">06</span> calendar</a></li>
+      </ul>
+
+      <div class="footer">
+        <span id="clock">--:--:--</span>
+        <span>status: online</span>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function tick() {
+      const el = document.getElementById('clock');
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString([], { hour12: false });
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
