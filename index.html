@@ -234,6 +234,13 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    // Belt-and-suspenders focus: the autofocus attribute isn't always
+    // honored when a page loads as a browser homepage, so grab focus
+    // explicitly once everything's ready.
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('input[name="q"]').focus();
+    });
   </script>
 
 </body>
